@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>a little FISH</title>
+  <title>A SMALL FISH</title>
   
-  
+  <subtitle>FISH FISH I CAN FLY</subtitle>
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://boyyang-love.github.io/"/>
-  <updated>2020-05-25T12:17:32.994Z</updated>
+  <updated>2020-05-26T01:25:39.417Z</updated>
   <id>https://boyyang-love.github.io/</id>
   
   <author>
@@ -17,11 +17,35 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>vue 项目打包部署到GitHub上</title>
+    <link href="https://boyyang-love.github.io/2020/05/26/vue/"/>
+    <id>https://boyyang-love.github.io/2020/05/26/vue/</id>
+    <published>2020-05-26T01:07:03.610Z</published>
+    <updated>2020-05-26T01:25:39.417Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;vue项目完成，可以将静态资源打包上传到GitHub pages 通过GitHub链接别人也可以访问到你的网页.&lt;/p&gt;
+&lt;h2 id=&quot;将vue项目进行打包&quot;&gt;&lt;a href=&quot;#将vue项目进行打包&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+    
+    
+  </entry>
+  
+  <entry>
     <title>Hello World</title>
     <link href="https://boyyang-love.github.io/2020/05/25/hello-world/"/>
     <id>https://boyyang-love.github.io/2020/05/25/hello-world/</id>
     <published>2020-05-25T12:17:32.994Z</published>
-    <updated>2020-05-25T12:17:32.994Z</updated>
+    <updated>2020-05-26T01:23:36.527Z</updated>
     
     <summary type="html">
     
