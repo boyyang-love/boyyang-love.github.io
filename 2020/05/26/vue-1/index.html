@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="vue 项目打包部署到GitHub上, A SMALL FISH">
+    <meta name="keywords" content="vue学习（1）, A SMALL FISH">
     <meta name="description" content="第一行没有你，第二行没有你，第三行没有也罢">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>vue 项目打包部署到GitHub上 | A SMALL FISH</title>
+    <title>vue学习（1） | A SMALL FISH</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -308,12 +308,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/14.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/8.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">vue 项目打包部署到GitHub上</h1>
+                    <h1 class="description center-align post-title">vue学习（1）</h1>
                 </div>
             </div>
         </div>
@@ -458,9 +458,46 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>vue项目完成，可以将静态资源打包上传到GitHub pages 通过GitHub链接别人也可以访问到你的网页.</p>
-<h2 id="将vue项目进行打包"><a href="#将vue项目进行打包" class="headerlink" title="将vue项目进行打包"></a>将vue项目进行打包</h2><pre><code>npm run build</code></pre><p>打包结束后可以看到一个dist文件夹，这就是将要用到的文件夹</p>
-<h2 id="在项目的master主分支创建gh-pages分支"><a href="#在项目的master主分支创建gh-pages分支" class="headerlink" title="在项目的master主分支创建gh-pages分支"></a>在项目的master主分支创建gh-pages分支</h2><pre><code>git checkout -b gh-pages</code></pre><h2 id="将dist-文件夹提交暂存区"><a href="#将dist-文件夹提交暂存区" class="headerlink" title="将dist 文件夹提交暂存区"></a>将dist 文件夹提交暂存区</h2><pre><code>git add -f dist</code></pre><h2 id="将文件提交"><a href="#将文件提交" class="headerlink" title="将文件提交"></a>将文件提交</h2><pre><code>git commit -m &#39;first commit&#39;</code></pre><h2 id="提交到远程GitHub上"><a href="#提交到远程GitHub上" class="headerlink" title="提交到远程GitHub上"></a>提交到远程GitHub上</h2><pre><code>git subtree push --prefix dist origin gh-pages</code></pre>
+                <h2 id="vue中tab切换效果实现"><a href="#vue中tab切换效果实现" class="headerlink" title="vue中tab切换效果实现"></a>vue中tab切换效果实现</h2><h3 id="Tab-切换"><a href="#Tab-切换" class="headerlink" title="Tab 切换"></a>Tab 切换</h3><p>代码如下:</p>
+<pre class=" language-bash"><code class="language-bash"><span class="token operator">&lt;</span>ul<span class="token operator">></span>
+<span class="token operator">&lt;</span>li @click<span class="token operator">=</span><span class="token string">"tab = '首页'"</span> :class<span class="token operator">=</span><span class="token string">"{ active: tab == '首页' }"</span><span class="token operator">></span>首页<span class="token operator">&lt;</span>/li<span class="token operator">></span>
+<span class="token operator">&lt;</span>li @click<span class="token operator">=</span><span class="token string">"tab = '关于'"</span> :class<span class="token operator">=</span><span class="token string">"{ active: tab == '关于' }"</span><span class="token operator">></span>关于<span class="token operator">&lt;</span>/li<span class="token operator">></span>
+<span class="token operator">&lt;</span>/ul<span class="token operator">></span>
+</code></pre>
+<h3 id="首先写一个CSS样式-active"><a href="#首先写一个CSS样式-active" class="headerlink" title="首先写一个CSS样式.active"></a>首先写一个CSS样式.active</h3><pre class=" language-bash"><code class="language-bash">.active <span class="token punctuation">{</span>
+    color <span class="token keyword">:</span> red<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+<h3 id="data中代码，默认首页有样式"><a href="#data中代码，默认首页有样式" class="headerlink" title="data中代码，默认首页有样式"></a>data中代码，默认首页有样式</h3><pre class=" language-bash"><code class="language-bash">data <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token punctuation">{</span>
+        tab: <span class="token string">"首页"</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre>
+<h3 id="当触发点击事件是，tab被重新赋值此时样式将会加载到li元素上"><a href="#当触发点击事件是，tab被重新赋值此时样式将会加载到li元素上" class="headerlink" title="当触发点击事件是，tab被重新赋值此时样式将会加载到li元素上"></a>当触发点击事件是，tab被重新赋值此时样式将会加载到li元素上</h3><h2 id="vue实现反向代理"><a href="#vue实现反向代理" class="headerlink" title="vue实现反向代理"></a>vue实现反向代理</h2><h3 id="当请求后端数据存在跨域是可以通过反向代理解决"><a href="#当请求后端数据存在跨域是可以通过反向代理解决" class="headerlink" title="当请求后端数据存在跨域是可以通过反向代理解决"></a>当请求后端数据存在跨域是可以通过反向代理解决</h3><p>代码如下:</p>
+<pre class=" language-bush"><code class="language-bush">module.exports = {
+    devServer:{
+        proxy:{
+            '/api':{
+                target:"http://39.97.33.178",
+                changeOrigin : true
+            }
+        }
+    }
+}</code></pre>
+<h2 id="git常用指令"><a href="#git常用指令" class="headerlink" title="git常用指令"></a>git常用指令</h2><h3 id="git-init-初始化仓库"><a href="#git-init-初始化仓库" class="headerlink" title="git init 初始化仓库"></a>git init 初始化仓库</h3><pre class=" language-bush"><code class="language-bush">git init</code></pre>
+<h3 id="ls-a-查看仓库隐藏文件"><a href="#ls-a-查看仓库隐藏文件" class="headerlink" title="ls -a 查看仓库隐藏文件"></a>ls -a 查看仓库隐藏文件</h3><pre class=" language-bush"><code class="language-bush">ls -a</code></pre>
+<h3 id="git-status-查看当前仓库的文件状态"><a href="#git-status-查看当前仓库的文件状态" class="headerlink" title="git status 查看当前仓库的文件状态"></a>git status 查看当前仓库的文件状态</h3><pre class=" language-bush"><code class="language-bush">git status</code></pre>
+<h3 id="git-add-将文件提交到缓存区"><a href="#git-add-将文件提交到缓存区" class="headerlink" title="git add . 将文件提交到缓存区"></a>git add . 将文件提交到缓存区</h3><pre class=" language-bush"><code class="language-bush">git add .</code></pre>
+<h3 id="git-commit-m-“first-commit”-将文件从缓存区提交到仓库"><a href="#git-commit-m-“first-commit”-将文件从缓存区提交到仓库" class="headerlink" title="git commit -m “first commit” 将文件从缓存区提交到仓库"></a>git commit -m “first commit” 将文件从缓存区提交到仓库</h3><pre class=" language-bush"><code class="language-bush">git commit -m "first commit"</code></pre>
+<h3 id="git-push-u-origin-master-将master主分支提交到远程仓库"><a href="#git-push-u-origin-master-将master主分支提交到远程仓库" class="headerlink" title="git push -u origin master 将master主分支提交到远程仓库"></a>git push -u origin master 将master主分支提交到远程仓库</h3><pre class=" language-bush"><code class="language-bush">git push -u origin master</code></pre>
+<h3 id="git-clone-url-从远程仓库克隆项目到本地-后面跟仓库地址"><a href="#git-clone-url-从远程仓库克隆项目到本地-后面跟仓库地址" class="headerlink" title="git clone [url]  从远程仓库克隆项目到本地,后面跟仓库地址"></a>git clone [url]  从远程仓库克隆项目到本地,后面跟仓库地址</h3><pre class=" language-bush"><code class="language-bush">git clone [url]</code></pre>
+<h3 id="git-branch-查看当前目录的分支"><a href="#git-branch-查看当前目录的分支" class="headerlink" title="git branch 查看当前目录的分支"></a>git branch 查看当前目录的分支</h3><pre class=" language-bush"><code class="language-bush">git branch</code></pre>
+<h3 id="git-checkout-b-dev-创建一个dev分支并切换到dev"><a href="#git-checkout-b-dev-创建一个dev分支并切换到dev" class="headerlink" title="git checkout -b dev 创建一个dev分支并切换到dev"></a>git checkout -b dev 创建一个dev分支并切换到dev</h3><pre class=" language-bush"><code class="language-bush">git checkout -b dev</code></pre>
+<h3 id="git-checkout-dev-切换到dev分支"><a href="#git-checkout-dev-切换到dev分支" class="headerlink" title="git checkout dev 切换到dev分支"></a>git checkout dev 切换到dev分支</h3><pre class=" language-bush"><code class="language-bush">git checkout dev</code></pre>
+<h3 id="git-branch-d-dev-删除本地dev分支"><a href="#git-branch-d-dev-删除本地dev分支" class="headerlink" title="git branch -d dev 删除本地dev分支"></a>git branch -d dev 删除本地dev分支</h3><pre class=" language-bush"><code class="language-bush">git branch -d dev</code></pre>
+<h3 id="git-push-origin-d-dev-删除远程仓库dev分支"><a href="#git-push-origin-d-dev-删除远程仓库dev分支" class="headerlink" title="git push origin -d dev 删除远程仓库dev分支"></a>git push origin -d dev 删除远程仓库dev分支</h3><pre class=" language-bush"><code class="language-bush">git push origin -d dev</code></pre>
+<h3 id="git-log-查看历史版本"><a href="#git-log-查看历史版本" class="headerlink" title="git log 查看历史版本"></a>git log 查看历史版本</h3><pre class=" language-bush"><code class="language-bush">git log</code></pre>
+<h3 id="git-reset-–hard-id-可以根据id回退到某个版本"><a href="#git-reset-–hard-id-可以根据id回退到某个版本" class="headerlink" title="git reset –hard id 可以根据id回退到某个版本"></a>git reset –hard id 可以根据id回退到某个版本</h3><pre class=" language-bush"><code class="language-bush">git reset --hard id</code></pre>
+
             </div>
             <hr/>
 
@@ -485,7 +522,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://boyyang-love.github.io/2020/05/26/vue/">https://boyyang-love.github.io/2020/05/26/vue/</a>
+                    <a href="https://boyyang-love.github.io/2020/05/26/vue-1/">https://boyyang-love.github.io/2020/05/26/vue-1/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -688,9 +725,10 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2020/05/26/vue-1/">
                     <div class="card-image">
@@ -711,9 +749,9 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-05-26
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-05-26
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -722,6 +760,7 @@
                         </span>
                     </div>
                 </div>
+
                 
             </div>
         </div>
@@ -732,24 +771,26 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/05/25/hello-world/">
+                <a href="/2020/05/26/vue/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="Hello World">
+                        <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="vue 项目打包部署到GitHub上">
                         
-                        <span class="card-title">Hello World</span>
+                        <span class="card-title">vue 项目打包部署到GitHub上</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hex
+                            vue项目完成，可以将静态资源打包上传到GitHub pages 通过GitHub链接别人也可以访问到你的网页.
+将vue项目进行打包npm run build打包结束后可以看到一个dist文件夹，这就是将要用到的文件夹
+在项目的maste
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-05-25
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-05-26
                             </span>
                         <span class="publish-author">
                             
