@@ -29,8 +29,7 @@
 
     <script src="/libs/jquery/jquery.min.js"></script>
 
-<meta name="generator" content="Hexo 4.2.1"><link rel="alternate" href="/atom.xml" title="A SMALL FISH" type="application/atom+xml">
-</head>
+<meta name="generator" content="Hexo 4.2.1"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
 
 
 <body>
@@ -460,14 +459,8 @@
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <p>vue项目完成，可以将静态资源打包上传到GitHub pages 通过GitHub链接别人也可以访问到你的网页.</p>
-<h2 id="将vue项目进行打包"><a href="#将vue项目进行打包" class="headerlink" title="将vue项目进行打包"></a>将vue项目进行打包</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm run build</span><br></pre></td></tr></table></figure>
-<p>打包结束后可以看到一个dist文件夹，这就是将要用到的文件夹</p>
-<h2 id="在项目的master主分支创建gh-pages分支"><a href="#在项目的master主分支创建gh-pages分支" class="headerlink" title="在项目的master主分支创建gh-pages分支"></a>在项目的master主分支创建gh-pages分支</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout -b gh-pages</span><br></pre></td></tr></table></figure>
-<h2 id="将dist-文件夹提交暂存区"><a href="#将dist-文件夹提交暂存区" class="headerlink" title="将dist 文件夹提交暂存区"></a>将dist 文件夹提交暂存区</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git add -f dist</span><br></pre></td></tr></table></figure>
-
-<h2 id="将文件提交"><a href="#将文件提交" class="headerlink" title="将文件提交"></a>将文件提交</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git commit -m &#39;first commit&#39;</span><br></pre></td></tr></table></figure>
-<h2 id="提交到远程GitHub上"><a href="#提交到远程GitHub上" class="headerlink" title="提交到远程GitHub上"></a>提交到远程GitHub上</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git subtree push --prefix dist origin gh-pages</span><br></pre></td></tr></table></figure>
-
+<h2 id="将vue项目进行打包"><a href="#将vue项目进行打包" class="headerlink" title="将vue项目进行打包"></a>将vue项目进行打包</h2><pre><code>npm run build</code></pre><p>打包结束后可以看到一个dist文件夹，这就是将要用到的文件夹</p>
+<h2 id="在项目的master主分支创建gh-pages分支"><a href="#在项目的master主分支创建gh-pages分支" class="headerlink" title="在项目的master主分支创建gh-pages分支"></a>在项目的master主分支创建gh-pages分支</h2><pre><code>git checkout -b gh-pages</code></pre><h2 id="将dist-文件夹提交暂存区"><a href="#将dist-文件夹提交暂存区" class="headerlink" title="将dist 文件夹提交暂存区"></a>将dist 文件夹提交暂存区</h2><pre><code>git add -f dist</code></pre><h2 id="将文件提交"><a href="#将文件提交" class="headerlink" title="将文件提交"></a>将文件提交</h2><pre><code>git commit -m &#39;first commit&#39;</code></pre><h2 id="提交到远程GitHub上"><a href="#提交到远程GitHub上" class="headerlink" title="提交到远程GitHub上"></a>提交到远程GitHub上</h2><pre><code>git subtree push --prefix dist origin gh-pages</code></pre>
             </div>
             <hr/>
 
@@ -713,9 +706,8 @@
                     <div class="summary block-with-text">
                         
                             vue项目完成，可以将静态资源打包上传到GitHub pages 通过GitHub链接别人也可以访问到你的网页.
-将vue项目进行打包1npm run build
-打包结束后可以看到一个dist文件夹，这就是将要用到的文件夹
-在项目的mas
+将vue项目进行打包npm run build打包结束后可以看到一个dist文件夹，这就是将要用到的文件夹
+在项目的maste
                         
                     </div>
                     <div class="publish-info">
