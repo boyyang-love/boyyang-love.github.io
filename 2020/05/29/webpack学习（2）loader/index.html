@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="webpack学习（1）核心概念, A SMALL FISH">
+    <meta name="keywords" content="webpack学习（2）loader与plugins, A SMALL FISH">
     <meta name="description" content="第一行没有你，第二行没有你，第三行没有也罢">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>webpack学习（1）核心概念 | A SMALL FISH</title>
+    <title>webpack学习（2）loader与plugins | A SMALL FISH</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -308,12 +308,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/7.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/21.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">webpack学习（1）核心概念</h1>
+                    <h1 class="description center-align post-title">webpack学习（2）loader与plugins</h1>
                 </div>
             </div>
         </div>
@@ -458,85 +458,115 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>webpack 是一个现代 JavaScript 应用程序的静态模块打包器(module bundler)。</p>
-<h2 id="核心概念"><a href="#核心概念" class="headerlink" title="核心概念"></a>核心概念</h2><ul>
-<li>entry(入口)</li>
-<li>output（输出）</li>
-<li>loader</li>
-<li>plugin（插件）</li>
-</ul>
-<h3 id="entry-（入口）"><a href="#entry-（入口）" class="headerlink" title="entry （入口）"></a>entry （入口）</h3><pre class=" language-JavaScript"><code class="language-JavaScript">module.exports = {
-    entry: './path/to/my/entry/file.js'
-}</code></pre>
-<h3 id="output-输出"><a href="#output-输出" class="headerlink" title="output (输出)"></a>output (输出)</h3><pre class=" language-JavaScript"><code class="language-JavaScript">const path = require('path');
+                <p>loader用于对模块的源代码进行转换</p>
+<h2 id="通过loader转换将css代码和less打包"><a href="#通过loader转换将css代码和less打包" class="headerlink" title="通过loader转换将css代码和less打包"></a>通过loader转换将css代码和less打包</h2><ol>
+<li>使用loader首先得下载所需要得loader<pre class=" language-bush"><code class="language-bush">npm install style-loader css-loader less-loader -D</code></pre>
+</li>
+<li>css以及less文件的打包(代码)</li>
+</ol>
+<pre class=" language-webpack.config.js"><code class="language-webpack.config.js">/* jshint esversion: 6 */
+const {resolve} = require('path');
 
 module.exports = {
-  entry: './path/to/my/entry/file.js',
-  output: {
-    path: path.resolve(__dirname, 'dist'),
-    filename: 'my-first-webpack.bundle.js'
-  }
-};</code></pre>
-<h3 id="loader"><a href="#loader" class="headerlink" title="loader"></a>loader</h3><ul>
-<li>用来处理非js的文件，可以将webpack不能处理的文件转换为能够处理的文件。</li>
-</ul>
-<h3 id="plugin"><a href="#plugin" class="headerlink" title="plugin"></a>plugin</h3><pre class=" language-JavaScript"><code class="language-JavaScript">const path = require('path');
+    // 入口文件
+    entry: './src/index.js',
+    // 输出
+    output: {
+        filename: 'build.js',
+        path: resolve(__dirname, 'build')
+    },
+    // loader配置
+    module: {
+        rules: [{
+            // 匹配文件
+            test: /\.css$/,
+            // 使用哪些loader
+            use: [
+                // 创建style标签，将js中的样式资源插入进行，添加到head中生效
+                'style-loader',
+                // 将css文件变成commonjs模块加载js中，里面的内容是样式字符串
+                'css-loader'
+            ]
+        },
+        {
+            test : /\.less$/,
+            use : [
+                'style-loader',
+                'css-loader',
+                'less-loader'
+            ]
+        }
 
-const config = {
-  output: {
-    filename: 'my-first-webpack.bundle.js'
-  },
-  module: {
-    rules: [
-      { test: /\.txt$/, use: 'raw-loader' }
     ]
-  }
-};
+    },
+    // plugin
+    plugins: [
 
-module.exports = config;</code></pre>
-<h2 id="安装以及使用"><a href="#安装以及使用" class="headerlink" title="安装以及使用"></a>安装以及使用</h2><ol>
-<li><p>建立一个空文件夹</p>
-<ul>
-<li>初始化环境</li>
-</ul>
-<pre class=" language-npm"><code class="language-npm">npm init</code></pre>
-</li>
-<li><p>安装webpack和webpack-cli</p>
-<ul>
-<li>全局安装webpack以及脚手架webpack-cli</li>
-</ul>
-<pre class=" language-bush"><code class="language-bush">npm install webpack webpack-cli -g</code></pre>
-<ul>
-<li>本地安装(-D代表开发环境的依赖)</li>
-</ul>
-<pre class=" language-bush"><code class="language-bush">npm install webpack webpack-cli -D</code></pre>
-</li>
-<li><p>建立src文件夹以及build文件夹</p>
-<ul>
-<li>src为项目打包的入口文件夹，在里面建立一个index.js文件</li>
-</ul>
-</li>
-<li><p>运行指令</p>
-<ul>
-<li>开发环境：</li>
-</ul>
-<pre class=" language-bush"><code class="language-bush">webpack ./src/index.js -o ./build/build.js --mode=development</code></pre>
-<p>webpack会以 ./src/index.js为入口文件开始打包，打包后输出到 ./build/build.js 。 整体环境为开发环境</p>
-<pre class=" language-bush"><code class="language-bush">Hash: 619b5336d47282a02d40
-Version: webpack 4.43.0
-Time: 85ms
-Built at: 2020-05-29 8:58:06
-Asset      Size  Chunks             Chunk Names
-build.js  3.99 KiB    main  [emitted]  main
-Entrypoint main = build.js
-[./src/index.js] 203 bytes {main} [built]</code></pre>
-</li>
+    ],
+    mode: 'development'
+    // mode : 'production'
+};</code></pre>
+<h2 id="通过plugins将html文件打包"><a href="#通过plugins将html文件打包" class="headerlink" title="通过plugins将html文件打包"></a>通过plugins将html文件打包</h2><ol>
+<li>安装插件</li>
 </ol>
-<ul>
-<li>生产环境(会将打包后的资源压缩)<pre class=" language-bush"><code class="language-bush">webpack ./src/index.js -o ./build/build.js --mode=production</code></pre>
-</li>
-</ul>
+<pre class=" language-bush"><code class="language-bush">npm install html-webpack-plugin -D</code></pre>
+<ol start="2">
+<li>在build中生成一个没有结构的html</li>
+</ol>
+<pre class=" language-webpack.config.js"><code class="language-webpack.config.js">/* jshint esversion: 6 */
+const {resolve} = require('path');
+const HtmlWebPackPlugin = require('html-webpack-plugin');
 
+module.exports = {
+    // 入口文件
+    entry: './src/index.js',
+    // 输出
+    output: {
+        filename: 'build.js',
+        path: resolve(__dirname, 'build')
+    },
+    module: {
+    // plugin
+    plugins: [
+
+        // 功能: 默认会创建一个空的html,自动引入打包输出得所以资源（js, css）
+         new HtmlWebPackPlugin()
+    ],
+    mode: 'development'
+};</code></pre>
+<ul>
+<li>这段代码会在build文件中生成一个没有结构的html文件</li>
+</ul>
+<ol start="3">
+<li>生成有结构的html</li>
+</ol>
+<pre class=" language-webpack.config.js"><code class="language-webpack.config.js">/* jshint esversion: 6 */
+const {resolve} = require('path');
+const HtmlWebPackPlugin = require('html-webpack-plugin');
+
+module.exports = {
+    // 入口文件
+    entry: './src/index.js',
+    // 输出
+    output: {
+        filename: 'build.js',
+        path: resolve(__dirname, 'build')
+    },
+    module: {
+    // plugin
+    plugins: [
+        // new HtmlWebPackPlugin()
+        // 功能: 默认会创建一个空的html,自动引入打包输出得所以资源（js, css）
+        // 需求: 需要有结构的html文件
+        new HtmlWebPackPlugin({
+            // 复制'./src/index.html'文件，并自动引入打包资源（js, css）
+            template : './src/index.html'
+        })
+    ],
+    mode: 'development'
+    // mode : 'production'
+};</code></pre>
+<h2 id="下一期学习目标图片资源的打包"><a href="#下一期学习目标图片资源的打包" class="headerlink" title="下一期学习目标图片资源的打包"></a>下一期学习目标图片资源的打包</h2>
             </div>
             <hr/>
 
@@ -561,7 +591,7 @@ Entrypoint main = build.js
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://boyyang-love.github.io/2020/05/29/webpick%E5%AD%A6%E4%B9%A0%EF%BC%881%EF%BC%89/">https://boyyang-love.github.io/2020/05/29/webpick%E5%AD%A6%E4%B9%A0%EF%BC%881%EF%BC%89/</a>
+                    <a href="https://boyyang-love.github.io/2020/05/29/webpack%E5%AD%A6%E4%B9%A0%EF%BC%882%EF%BC%89loader/">https://boyyang-love.github.io/2020/05/29/webpack%E5%AD%A6%E4%B9%A0%EF%BC%882%EF%BC%89loader/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -764,9 +794,52 @@ Entrypoint main = build.js
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
+            <div class="card">
+                <a href="/2020/05/29/webpack%E5%AD%A6%E4%B9%A0%EF%BC%882%EF%BC%89loader/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="webpack学习（2）loader与plugins">
+                        
+                        <span class="card-title">webpack学习（2）loader与plugins</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            loader用于对模块的源代码进行转换
+通过loader转换将css代码和less打包
+使用loader首先得下载所需要得loadernpm install style-loader css-loader less-loader -D
+
+c
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-05-29
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            boyyang
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
             <div class="card">
                 <a href="/2020/05/29/vue/">
                     <div class="card-image">
@@ -786,48 +859,8 @@ vue静态页面部署将vue项目进行打包npm run build打包结束后可以�
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-05-29
-                        </span>
-                        <span class="publish-author">
-                            
-                            <i class="fas fa-user fa-fw"></i>
-                            boyyang
-                            
-                        </span>
-                    </div>
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
-            </div>
-            <div class="card">
-                <a href="/2020/05/28/vue-1/">
-                    <div class="card-image">
-                        
-                        
-                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="vue学习">
-                        
-                        <span class="card-title">vue学习</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            vue中tab切换效果实现Tab 切换代码如下:
-&lt;ul>
-&lt;li @click="tab = '首页'" :class="{ active: tab == '首页' }">首页&lt;/li>
-&lt;li @click="t
-                        
-                    </div>
-                    <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-05-28
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-05-29
                             </span>
                         <span class="publish-author">
                             
