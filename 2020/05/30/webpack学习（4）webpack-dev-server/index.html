@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="webpack学习（3）图片处理, A SMALL FISH">
+    <meta name="keywords" content="webpack学习（4）webpack-dev-server, A SMALL FISH">
     <meta name="description" content="第一行没有你，第二行没有你，第三行没有也罢">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>webpack学习（3）图片处理 | A SMALL FISH</title>
+    <title>webpack学习（4）webpack-dev-server | A SMALL FISH</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -308,12 +308,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/18.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/1.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">webpack学习（3）图片处理</h1>
+                    <h1 class="description center-align post-title">webpack学习（4）webpack-dev-server</h1>
                 </div>
             </div>
         </div>
@@ -458,98 +458,26 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>通过loader处理图片</p>
-<h2 id="webpack需要通过loader来处理图片文件"><a href="#webpack需要通过loader来处理图片文件" class="headerlink" title="webpack需要通过loader来处理图片文件"></a>webpack需要通过loader来处理图片文件</h2><h3 id="下载loader（url-loader）"><a href="#下载loader（url-loader）" class="headerlink" title="下载loader（url-loader）"></a>下载loader（url-loader）</h3><pre class=" language-bush"><code class="language-bush">npm install url-loader file-loader -D</code></pre>
-<h3 id="使用loader"><a href="#使用loader" class="headerlink" title="使用loader"></a>使用loader</h3><pre class=" language-webpack.config.js"><code class="language-webpack.config.js"> {
-   // 处理图片
-   test : /\.(jpg|png|gif)/,
-  // 当loader只有一个的时候可以直接写
-  // 下载url-loader 和 file-loader
-  loader : 'url-loader'
-  options: {
-        // 图片大小小于8kb(8*1024),就会被base64处理
-        // 优点： 减少请求数量（减轻服务器压力）
-        // 缺点：图片体积会更大（文件请求速度更慢）
-        limit: 8 * 1024
-        }
- }</code></pre>
-<h4 id="这种方法无法处理html中的图片资源"><a href="#这种方法无法处理html中的图片资源" class="headerlink" title="这种方法无法处理html中的图片资源"></a>这种方法无法处理html中的图片资源</h4><pre class=" language-bush"><code class="language-bush">npm install html-loader -D</code></pre>
-<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><pre class=" language-webpack.config.js"><code class="language-webpack.config.js">{
-  test: /\.html$/,
-  // 处理html中的图片（负责引入img,从而能被url-loader进行处理）
-  loader: 'html-loader'
-            }</code></pre>
-<h3 id="完整代码"><a href="#完整代码" class="headerlink" title="完整代码"></a>完整代码</h3><pre class=" language-webpack.config.js"><code class="language-webpack.config.js">/* jshint esversion: 6 */
-const { resolve } = require('path');
-const HtmlWebPackPlugin = require('html-webpack-plugin');
-
-module.exports = {
-    // 入口文件
-    entry: './src/index.js',
-    // 输出
-    output: {
-        filename: 'build.js',
-        path: resolve(__dirname, 'build')
-    },
-    // loader配置
-    module: {
-        rules: [{
-                // 匹配文件
-                test: /\.css$/,
-                // 使用哪些loader
-                use: [
-                    // 创建style标签，将js中的样式资源插入进行，添加到head中生效
-                    'style-loader',
-                    // 将css文件变成commonjs模块加载js中，里面的内容是样式字符串
-                    'css-loader'
-                ]
-            },
-            {
-                // 处理less文件
-                test: /\.less$/,
-                use: [
-                    'style-loader',
-                    'css-loader',
-                    'less-loader'
-                ]
-            },
-            {
-                // 处理图片
-                test: /\.(jpg|png|gif)$/,
-                // 当loader只有一个的时候可以直接写
-                // 下载url-loader 和 file-loader
-                loader: 'url-loader',
-                // 配置
-                options: {
-                    // 图片大小小于8kb(8*1024),就会被base64处理
-                    // 优点： 减少请求数量（减轻服务器压力）
-                    // 缺点：图片体积会更大（文件请求速度更慢）
-                    limit: 8 * 1024,
-                    // 图片重命名[hash:10]取图片的hash的前10位，[ext]取文件原来扩展名
-                    name: '[hash:10].[ext]'
-                }
-            },
-            {
-                test: /\.html$/,
-                // 处理html中的图片（负责引入img,从而能被url-loader进行处理）
-                loader: 'html-loader'
-            }
-        ]
-    },
-    // plugin
-    plugins: [
-        // new HtmlWebPackPlugin()
-        // 功能: 默认会创建一个空的html,自动引入打包输出得所以资源（js, css）
-        // 需求: 需要有结构的html文件
-        new HtmlWebPackPlugin({
-            // 复制'./src/index.html'文件，并自动引入打包资源（js, css）
-            template: './src/index.html'
-        })
-    ],
-    // 开发模式与生产模式
-    mode: 'development'
-    // mode : 'production'
-};</code></pre>
+                <h2 id="搭建webpack-dev-server"><a href="#搭建webpack-dev-server" class="headerlink" title="搭建webpack-dev-server"></a>搭建webpack-dev-server</h2><h3 id="安装webpack-dev-server"><a href="#安装webpack-dev-server" class="headerlink" title="安装webpack-dev-server"></a>安装webpack-dev-server</h3><pre class=" language-bush"><code class="language-bush">npm install webpack-dev-server -D</code></pre>
+<h3 id="在webpack-config-js中配置"><a href="#在webpack-config-js中配置" class="headerlink" title="在webpack.config.js中配置"></a>在webpack.config.js中配置</h3><pre class=" language-webpack.config.js"><code class="language-webpack.config.js"> devServer: {
+        contentBase: resolve(__dirname, 'build'),
+        compress: true,
+        // 配置端口号
+        port: 9000,
+        // 是否自动打开浏览器
+        open: true
+    }</code></pre>
+<h3 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h3><pre class=" language-bush"><code class="language-bush">npx webpack-dev-server</code></pre>
+<h3 id="通过npm运行"><a href="#通过npm运行" class="headerlink" title="通过npm运行"></a>通过npm运行</h3><ul>
+<li><p>在package.js 文件中配置</p>
+<pre class=" language-package.js"><code class="language-package.js">"scripts": {
+ "dev": "webpack-dev-server"
+}</code></pre>
+</li>
+<li><p>通过以上配置以后可以通过npm来运行</p>
+<pre class=" language-bush"><code class="language-bush">npm run dev</code></pre>
+</li>
+</ul>
 
             </div>
             <hr/>
@@ -575,7 +503,7 @@ module.exports = {
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://boyyang-love.github.io/2020/05/30/webpack%E5%AD%A6%E4%B9%A0%EF%BC%883%EF%BC%89%E5%9B%BE%E7%89%87%E5%A4%84%E7%90%86/">https://boyyang-love.github.io/2020/05/30/webpack%E5%AD%A6%E4%B9%A0%EF%BC%883%EF%BC%89%E5%9B%BE%E7%89%87%E5%A4%84%E7%90%86/</a>
+                    <a href="https://boyyang-love.github.io/2020/05/30/webpack%E5%AD%A6%E4%B9%A0%EF%BC%884%EF%BC%89webpack-dev-server/">https://boyyang-love.github.io/2020/05/30/webpack%E5%AD%A6%E4%B9%A0%EF%BC%884%EF%BC%89webpack-dev-server/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -778,9 +706,10 @@ module.exports = {
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2020/05/30/webpack%E5%AD%A6%E4%B9%A0%EF%BC%884%EF%BC%89webpack-dev-server/">
                     <div class="card-image">
@@ -800,9 +729,9 @@ module.exports = {
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-05-30
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-05-30
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -811,6 +740,7 @@ module.exports = {
                         </span>
                     </div>
                 </div>
+
                 
             </div>
         </div>
@@ -821,28 +751,28 @@ module.exports = {
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/05/29/webpack%E5%AD%A6%E4%B9%A0%EF%BC%882%EF%BC%89loader/">
+                <a href="/2020/05/30/webpack%E5%AD%A6%E4%B9%A0%EF%BC%883%EF%BC%89%E5%9B%BE%E7%89%87%E5%A4%84%E7%90%86/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="webpack学习（2）loader与plugins">
+                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="webpack学习（3）图片处理">
                         
-                        <span class="card-title">webpack学习（2）loader与plugins</span>
+                        <span class="card-title">webpack学习（3）图片处理</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            loader用于对模块的源代码进行转换
-通过loader转换将css代码和less打包
-使用loader首先得下载所需要得loadernpm install style-loader css-loader less-loader -D
-
-c
+                            通过loader处理图片
+webpack需要通过loader来处理图片文件下载loader（url-loader）npm install url-loader file-loader -D
+使用loader {
+   // 处理图片
+   
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-05-29
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-05-30
                             </span>
                         <span class="publish-author">
                             
