@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="webpack学习（6）css兼容性处理, A SMALL FISH">
+    <meta name="keywords" content="node.js学习（1）, A SMALL FISH">
     <meta name="description" content="第一行没有你，第二行没有你，第三行没有也罢">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>webpack学习（6）css兼容性处理 | A SMALL FISH</title>
+    <title>node.js学习（1） | A SMALL FISH</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -311,12 +311,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/21.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/1.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">webpack学习（6）css兼容性处理</h1>
+                    <h1 class="description center-align post-title">node.js学习（1）</h1>
                 </div>
             </div>
         </div>
@@ -445,7 +445,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-06-01
+                    2020-06-07
                 </div>
                 
 
@@ -461,41 +461,49 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="css兼容性处理（postcss-loader）"><a href="#css兼容性处理（postcss-loader）" class="headerlink" title="css兼容性处理（postcss-loader）"></a>css兼容性处理（postcss-loader）</h2><h3 id="安装poscss-loader-以及-postcss-preset-env"><a href="#安装poscss-loader-以及-postcss-preset-env" class="headerlink" title="安装poscss-loader 以及 postcss-preset-env"></a>安装poscss-loader 以及 postcss-preset-env</h3><pre class=" language-bush"><code class="language-bush">npm install postcss-loader postcss-preset-env -D</code></pre>
-<h3 id="在webpack-config-js中的配置"><a href="#在webpack-config-js中的配置" class="headerlink" title="在webpack.config.js中的配置"></a>在webpack.config.js中的配置</h3><pre class=" language-webpack.config.js"><code class="language-webpack.config.js"> rules:[
-{
-    test : /\.css$/,
-    use : [
-        // 'style-loader',
-        MiniCssEtractPlugin.loader,
-        'css-loader',
-        // 使用loader默认配置
-        // 'postcss-loader',
-        // 修改loader的配置
-        {
-            loader : 'postcss-loader',
-            options : {
-                ident : 'postcss',
-                plugins : () => [
-                    require('postcss-preset-env')()
-                ]
-            }
-        }
-    ]
-}</code></pre>
-<h3 id="在package-json中的配置"><a href="#在package-json中的配置" class="headerlink" title="在package.json中的配置"></a>在package.json中的配置</h3><pre class=" language-package.json"><code class="language-package.json">"browserslist" : {
-    "development" : [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ],
-    "production" : [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ]
-  }</code></pre>
-<h3 id="设置nodejs的环境变量"><a href="#设置nodejs的环境变量" class="headerlink" title="设置nodejs的环境变量"></a>设置nodejs的环境变量</h3><pre class=" language-webpack.config.js"><code class="language-webpack.config.js">process.env.NODE_ENV = 'development';</code></pre>
+                <h2 id="流式文件写入"><a href="#流式文件写入" class="headerlink" title="流式文件写入"></a>流式文件写入</h2><h3 id="fs-createWriteStream-path-options"><a href="#fs-createWriteStream-path-options" class="headerlink" title="fs.createWriteStream(path[, options])"></a>fs.createWriteStream(path[, options])</h3><pre class=" language-js"><code class="language-js"><span class="token comment" spellcheck="true">//引入fs模块</span>
+<span class="token keyword">const</span> fs <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'fs'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">//创建一个可写流</span>
+<span class="token keyword">let</span> ws <span class="token operator">=</span> fs<span class="token punctuation">.</span><span class="token function">createWriteStream</span><span class="token punctuation">(</span><span class="token string">'./dome.txt'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">//监听当前流的开与关</span>
+ws<span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">'open'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">{</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'opening'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+ws<span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">'close'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">{</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'closed'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">//写入流</span>
+ws<span class="token punctuation">.</span><span class="token function">write</span><span class="token punctuation">(</span><span class="token string">'this is first\n'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ws<span class="token punctuation">.</span><span class="token function">write</span><span class="token punctuation">(</span><span class="token string">'this is first\n'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ws<span class="token punctuation">.</span><span class="token function">write</span><span class="token punctuation">(</span><span class="token string">'this is first\n'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">//关闭流</span>
+ws<span class="token punctuation">.</span><span class="token function">close</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<h2 id="简单文件读取"><a href="#简单文件读取" class="headerlink" title="简单文件读取"></a>简单文件读取</h2><h3 id="fs-readFile-path-options-callback"><a href="#fs-readFile-path-options-callback" class="headerlink" title="fs.readFile(path[, options], callback)"></a>fs.readFile(path[, options], callback)</h3><pre class=" language-js"><code class="language-js"><span class="token keyword">const</span> fs <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'fs'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+fs<span class="token punctuation">.</span><span class="token function">readFile</span><span class="token punctuation">(</span><span class="token string">'./study1/src/dome.txt'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span>err<span class="token punctuation">,</span> data<span class="token punctuation">)</span><span class="token operator">=</span><span class="token operator">></span><span class="token punctuation">{</span>
+    <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token operator">!</span>err<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//Buffer格式</span>
+        console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>data<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//文本内容</span>
+    <span class="token punctuation">}</span><span class="token keyword">else</span><span class="token punctuation">{</span>
+        console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<h2 id="流式文件读取"><a href="#流式文件读取" class="headerlink" title="流式文件读取"></a>流式文件读取</h2><h3 id="fs-createReadStream-path-options"><a href="#fs-createReadStream-path-options" class="headerlink" title="fs.createReadStream(path[, options])"></a>fs.createReadStream(path[, options])</h3><pre class=" language-js"><code class="language-js"><span class="token keyword">const</span> fs <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'fs'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">let</span> rs <span class="token operator">=</span> fs<span class="token punctuation">.</span><span class="token function">createReadStream</span><span class="token punctuation">(</span><span class="token string">'./study1/src/dome.txt'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+rs<span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">'open'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">=</span><span class="token operator">></span><span class="token punctuation">{</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'opening'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">//对于可读流，当没有数据可读时，会自动关闭可读流</span>
+rs<span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">'close'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">=</span><span class="token operator">></span><span class="token punctuation">{</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'closed'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+rs<span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">'data'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span>data<span class="token punctuation">)</span><span class="token operator">=</span><span class="token operator">></span><span class="token punctuation">{</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>data<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
 
             </div>
             <hr/>
@@ -521,7 +529,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://boyyang-love.github.io/2020/06/01/webpack%E5%AD%A6%E4%B9%A0%EF%BC%886%EF%BC%89css%E5%85%BC%E5%AE%B9%E6%80%A7%E5%A4%84%E7%90%86/">https://boyyang-love.github.io/2020/06/01/webpack%E5%AD%A6%E4%B9%A0%EF%BC%886%EF%BC%89css%E5%85%BC%E5%AE%B9%E6%80%A7%E5%A4%84%E7%90%86/</a>
+                    <a href="https://boyyang-love.github.io/2020/06/07/node-js%E5%AD%A6%E4%B9%A0%EF%BC%881%EF%BC%89%E6%B5%81%E5%BC%8F%E6%96%87%E4%BB%B6%E5%86%99%E5%85%A5/">https://boyyang-love.github.io/2020/06/07/node-js%E5%AD%A6%E4%B9%A0%EF%BC%881%EF%BC%89%E6%B5%81%E5%BC%8F%E6%96%87%E4%BB%B6%E5%86%99%E5%85%A5/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -724,9 +732,10 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2020/06/07/node-js%E5%AD%A6%E4%B9%A0%EF%BC%881%EF%BC%89%E6%B5%81%E5%BC%8F%E6%96%87%E4%BB%B6%E5%86%99%E5%85%A5/">
                     <div class="card-image">
@@ -747,9 +756,9 @@ let ws = fs.createWriteStream('.
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-06-07
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-06-07
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -758,6 +767,7 @@ let ws = fs.createWriteStream('.
                         </span>
                     </div>
                 </div>
+
                 
             </div>
         </div>
@@ -768,25 +778,25 @@ let ws = fs.createWriteStream('.
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/05/31/webpack%E5%AD%A6%E4%B9%A0%EF%BC%885%EF%BC%89%E6%8F%90%E5%8F%96%E5%8D%95%E7%8B%ACcss/">
+                <a href="/2020/06/01/webpack%E5%AD%A6%E4%B9%A0%EF%BC%886%EF%BC%89css%E5%85%BC%E5%AE%B9%E6%80%A7%E5%A4%84%E7%90%86/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="webpack学习（5）提取单独css">
+                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="webpack学习（6）css兼容性处理">
                         
-                        <span class="card-title">webpack学习（5）提取单独css</span>
+                        <span class="card-title">webpack学习（6）css兼容性处理</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            通过webpack提取css文件安装插件mini-css-extract-pluginnpm install mini-css-extract-plugin -D
-引入插件const MiniCssExtractPlugin = requi
+                            css兼容性处理（postcss-loader）安装poscss-loader 以及 postcss-preset-envnpm install postcss-loader postcss-preset-env -D
+在webpack.c
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-05-31
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-06-01
                             </span>
                         <span class="publish-author">
                             
